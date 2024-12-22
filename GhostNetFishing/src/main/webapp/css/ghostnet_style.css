@@ -1,0 +1,44 @@
+.body{
+  font-family: Arial;
+}
+
+h1{
+  font-size: 1.7em;
+}
+
+h2{
+  font-size: 1.2em;
+}
+
+div.reportnetwrapper {
+  width: 500px
+}
+
+.reportnet {
+  margin-top: 8px;
+  height: 30px;
+  width: 150px;
+}
+
+.error{
+  color: darkred;
+  font-weight: bolder;
+  margin-top: 8px;
+}
+
+.assignnetform, .changestatusform{
+  width: 520px
+}
+
+.divider {
+  width: 520px;
+}
+
+.inputtext {
+  margin-top: 8px;
+  margin-right: 20px;
+}
+
+.selectmenu {
+  margin-top: 8px;
+}

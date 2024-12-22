@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+    <link rel="stylesheet" type="text/css" media="screen" href="css/report_style.css"/>
+    <title>Geisternetz melden</title>
+    <h:outputText value="#{loginController.checkLogin()}"/>
+</h:head>
+<h:body class="body">
+    <h1>Geisternetz melden</h1>
+    <h:form>
+        <p>
+            <h:outputLabel class="outputlabel" value="Breitengrad:" for="lat" />
+            <h:inputText id="lat" value="#{reportNetController.latitude}" validator="#{reportNetController.validateNumber}" required="true"/>
+            <br/>
+            <h:message for="lat" styleClass="error"/>
+        </p>
+        <p>
+            <h:outputLabel class="outputlabel" value="Längengrad:" for="lon"/>
+            <h:inputText id="lon" value="#{reportNetController.longitude}" validator="#{reportNetController.validateNumber}" required="true"/>
+            <br/>
+            <h:message for="lon" styleClass="error"/>
+        </p>
+        <p>
+            <h:outputLabel class="outputlabel" value="Geschätzte Breite des Netzes (in m):" for="width"/>
+            <h:inputText id="width" value="#{reportNetController.width}" validator="#{reportNetController.validateNumber}" required="true"/>
+            <br/>
+            <h:message for="width" styleClass="error"/>
+        </p>
+        <p>
+            <h:outputLabel class="outputlabel" value="Geschätzte Länge des Netzes (in m):" for="length"/>
+            <h:inputText id="length" value="#{reportNetController.length}" validator="#{reportNetController.validateNumber}" required="true"/>
+            <br/>
+            <h:message for="length" styleClass="error"/>
+        </p>
+        <h:commandButton class="reportbutton" value="Geisternetz melden" action="#{reportNetController.reportGhostNet}"/>
+    </h:form>
+    <p:divider align="center" style="width: 300px"/>
+    <h:button class="backbutton" outcome="ghostnets.xhtml" value="Zurück zur Übersicht"/>
+</h:body>
+</html>

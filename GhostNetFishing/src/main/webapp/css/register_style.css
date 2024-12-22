@@ -1,0 +1,31 @@
+.body{
+  font-family: Arial;
+  display: grid;
+  justify-items: center;
+}
+
+h1{
+  font-size: 1.7em;
+}
+
+h2{
+  font-size: 1.2em;
+}
+
+.loginbutton{
+  width:340px;
+}
+
+.registerbutton{
+  width: 100%;
+}
+
+form{
+  width: 340px
+}
+
+.error{
+  color: darkred;
+  font-weight: bolder;
+  margin-top: 8px;
+}

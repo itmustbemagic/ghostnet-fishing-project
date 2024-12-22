@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <link rel="stylesheet" type="text/css" href="css/login_style.css"/>
+    <title>Anmelden</title>
+    <h:outputText value="#{loginController.checkAlreadyLoggedIn()}"/>
+</h:head>
+<h:body styleClass="body">
+    <h1>Anmelden</h1>
+    <h:form class="loginform">
+        <p id="usernamesection">
+            <h:outputLabel class="usernamelabel" value="Benutzername:" for="user"/>
+            <h:inputText id="user" value="#{loginController.username}" size="40" required="true">
+                <f:event type="postValidate" listener="#{loginController.postValidateUser}"/>
+            </h:inputText>
+            <br/>
+            <h:message for="user" styleClass="error"/>
+        </p>
+        <p id="passwordsection">
+            <h:outputLabel class="passwordlabel" value="Passwort: " for="password"/>
+            <h:inputSecret id="password" value="#{loginController.password}" size="40" required="true"
+                validator="#{loginController.validateLogin}"/>
+            <br/>
+            <h:message for="password" styleClass="error"/>
+        </p>
+        <p class="error"><h:outputText value="#{loginController.failureMessage}"/></p>
+        <h:commandButton class="loginbutton" action="#{loginController.login}" value="Anmelden"/>
+    </h:form>
+    <p:divider align="center" style="width: 340px"/>
+    <h:button class="registerbutton" outcome="register.xhtml" value="Registrieren" />
+</h:body>
+</html>

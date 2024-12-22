@@ -1,0 +1,36 @@
+.body{
+  font-family: Arial;
+  display: grid;
+  justify-items: center;
+}
+
+h1{
+  font-size: 1.7em;
+}
+
+h2{
+  font-size: 1.2em;
+}
+
+.backbutton{
+  width: 300px;
+}
+
+.reportbutton{
+  width: 100%;
+}
+
+form{
+  width: 300px
+}
+
+.outputlabel {
+  width: 100%;
+  margin-bottom: 8px;
+}
+
+.error{
+  color: darkred;
+  font-weight: bolder;
+  margin-top: 8px;
+}

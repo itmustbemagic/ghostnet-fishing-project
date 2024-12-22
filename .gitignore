@@ -1,0 +1,5 @@
+.idea
+target
+ghostnet/*
+GhostNetFishing/target
+derby.log

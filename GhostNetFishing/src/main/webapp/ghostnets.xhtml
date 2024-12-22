@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <link rel="stylesheet" type="text/css" media="screen" href="css/ghostnet_style.css"/>
+    <title>GhostNetFishing</title>
+    <h:outputText value="#{loginController.checkLogin()}"/>
+</h:head>
+<h:body class="body">
+    <h1 id="ghostnetoverview">Geisternetzübersicht</h1>
+    <div class="reportnetwrapper">
+        <h:outputText value="Klicken Sie auf den Button um ein Geisternetz zu melden"/>
+        <h:button class="reportnet" id="reportnet" outcome="report.xhtml" value="Geisternetz melden"/>
+    </div>
+    <p:divider class="divider" align="center" rendered='#{ghostNetController.isRecover()}' />
+    <h:form class="assignnetform" rendered='#{ghostNetController.isRecover()}'>
+        <p>
+            <h:outputLabel value="Geben Sie die ID des Geisternetzes ein, welches Sie sich zuweisen möchten: " for="assignToMe"/>
+            <h:inputText class="inputtext" id="assignToMe" value="#{ghostNetController.selectedGhostNetId}" size="40" required="true"
+                           validator="#{ghostNetController.validateGhostNetId}"/>
+            <br/>
+            <h:message for="assignToMe" styleClass="error"/>
+        </p>
+        <h:commandButton action="#{ghostNetController.assignToGhostNet}" value="Geisternetz zuweisen"/>
+    </h:form>
+    <p:divider class="divider" align="center" rendered='#{ghostNetController.isRecover()}' />
+    <h:form class="changestatusform" rendered='#{ghostNetController.isRecover()}'>
+        <p>
+            <h:outputLabel value="Geben Sie die ID ein, welche bei der Sie den Status ändern möchten: " for="changeStatusID"/>
+            <h:inputText class="inputtext" id="changeStatusID" value="#{ghostNetController.selectedStatusGhostNetId}" size="40" required="true"
+                         validator="#{ghostNetController.validateStatusGhostNetId}"/>
+            <h:selectOneMenu class="selectmenu" value="#{ghostNetController.selectedStatus}" label="Waehle den Status"
+                             alwaysDisplayLabel="true">
+                <f:selectItems value="#{ghostNetController.statusOptions}"/>
+            </h:selectOneMenu>
+            <br/>
+            <h:message for="changeStatusID" styleClass="error"/>
+        </p>
+        <h:commandButton action="#{ghostNetController.changeGhostNetStatus}" value="Status aendern"/>
+    </h:form>
+    <h:form id="ghostnettableform">
+        <p:dataTable var="ghostnet" value="#{ghostNetController.lazyModel}" paginator="true" rows="10"
+                     paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                     rowsPerPageTemplate="5,10,100" id="ghostnetTable" lazy="true" widgetVar="ghostNetTable"
+                     filteredValue="#{ghostNetController.filteredGhostNets}" filterBy="#{ghostNetController.filterBy}">
+            <p:column id="ghostnettablecolumn0" headerText="ID">
+                <h:outputText id="ghostnettableidoutput" value="#{ghostnet.id}"/>
+            </p:column>
+            <p:column id="ghostnettablecolumn1" headerText="Koordinaten (Breitengrad, Laengengrad)">
+                <h:outputText id="ghostnettablecoordinateoutput" value="#{ghostnet.latitude}, #{ghostnet.longitude}"/>
+            </p:column>
+            <p:column id="ghostnettablecolumn2" headerText="Geschätzte Größe">
+                <h:outputText id="ghostnettablesizeoutput" value="(LxB) #{ghostnet.length}m x #{ghostnet.width}m"/>
+            </p:column>
+            <p:column id="ghostnettablecolumn3" headerText="Status" field="status" filterMatchMode="exact" rendered="#{ghostNetController.isRecover()}">
+                <f:facet name="filter" >
+                    <p:selectOneMenu onchange="PF('ghostNetTable').filter()">
+                        <f:selectItem itemLabel="Alle" itemValue="All" />
+                        <f:selectItem itemLabel="Gemeldet" itemValue="Gemeldet" />
+                    </p:selectOneMenu>
+                </f:facet>
+                <h:outputText id="ghostnettablestatusoutput" value="#{ghostnet.status}"/>
+            </p:column>
+            <p:column id="ghostnettablecolumn4" headerText="Status" field="status" filterMatchMode="exact" rendered="#{!ghostNetController.isRecover()}">
+                <f:facet name="filter" >
+                    <p:selectOneMenu onchange="PF('ghostNetTable').filter()">
+                        <f:selectItem itemLabel="Alle" itemValue="All" />
+                    </p:selectOneMenu>
+                </f:facet>
+                <h:outputText id="ghostnettablestatusoutputreporter" value="#{ghostnet.status}"/>
+            </p:column>
+            <p:column id="ghostnettablecolumn5" headerText="Bergende Person"
+                      rendered="#{ghostNetController.isRecover()}">
+                <h:outputText id="ghostnettablerecoveroutput"
+                              value='#{ghostNetController.getDisplayName(ghostnet.recoverUser, "recover")}'/>
+
+            </p:column>
+        </p:dataTable>
+    </h:form>
+    <h:form id="logoutform">
+        <h:commandLink id="logoutlink" action="#{loginController.logout()}" value="Abmelden"/>
+    </h:form>
+</h:body>
+</html>

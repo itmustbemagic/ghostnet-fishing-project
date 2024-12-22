@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+<h:head>
+    <link rel="stylesheet" type="text/css" href="css/register_style.css"/>
+    <title>Registrieren</title>
+    <h:outputText value="#{loginController.checkAlreadyLoggedIn()}"/>
+</h:head>
+<h:body class="body">
+    <h1>Registrieren</h1>
+    <h:form>
+        <p>
+            <h:outputLabel value="Vorname:" for="firstName"/>
+            <h:inputText id="firstName" value="#{loginController.firstName}" size="40" required="true" />
+            <br/>
+            <h:message for="firstName" styleClass="error"/>
+        </p>
+        <p>
+            <h:outputLabel value="Nachname:" for="lastName"/>
+            <h:inputText id="lastName" value="#{loginController.lastName}" size="40" required="true" />
+            <br/>
+            <h:message for="lastName" styleClass="error"/>
+        </p>
+        <p>
+            <h:outputLabel value="(Optional) Telefonnummer:" for="phoneNumber"/>
+            <h:inputText a:type="tel" id="phoneNumber" value="#{loginController.phoneNumber}" size="40"
+                         validator="#{loginController.validatePhoneNumber}" />
+            <br/>
+            <h:message for="phoneNumber" styleClass="error"/>
+        </p>
+        <p>
+            <h:outputLabel value="Benutzername:" for="username"/>
+            <h:inputText id="username" value="#{loginController.username}" size="40" required="true"
+                         validator="#{loginController.validateUsername}"/>
+            <br/>
+            <h:message for="username" styleClass="error"/>
+        </p>
+        <p>
+            <h:outputLabel value="Passwort:" for="password"/>
+            <h:inputSecret id="password" value="#{loginController.password}" size="40" required="true"
+                           validator="#{loginController.validatePassword}"/>
+            <br/>
+            <h:message for="password" styleClass="error"/>
+        </p>
+        <p class="error"><h:outputText value="#{loginController.failureMessage}"/></p>
+        <h:commandButton class="registerbutton" value="Registrieren" action="#{loginController.register}"/>
+    </h:form>
+    <p:divider align="center" style="width: 340px"/>
+    <h:button class="loginbutton" outcome="login.xhtml" value="Zurück zur Anmeldung"/>
+</h:body>
+</html>
